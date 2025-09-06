@@ -10,6 +10,10 @@ st.set_page_config(
     page_icon="💡",
     layout="centered"
 )
+# -------------------------------
+# School logo
+# -------------------------------
+st.image("assets/S-P-Jain_Final_logo_color.jpg", width=220)
 
 # -------------------------------
 # Custom banner styled to match your PDF (red header)
