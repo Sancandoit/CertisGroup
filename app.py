@@ -267,7 +267,7 @@ with tab_about:
 - We operationalize the case narrative into a quantitative sandbox.
 - We connect slide claims to academic frameworks and page-anchored evidence.
 - We make the value-proposition shift (from guard-hours to outcomes) measurable.
-
+""")
 
     st.markdown("---")
     st.write("If you have our deck or GitHub link, you can jump between slides, this app, and the theory files for full transparency.")
