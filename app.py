@@ -268,10 +268,6 @@ with tab_about:
 - We connect slide claims to academic frameworks and page-anchored evidence.
 - We make the value-proposition shift (from guard-hours to outcomes) measurable.
 
-**Slide taglines you can add**
-- *Value Proposition slide:* **“Explore how manpower savings and productivity gains turn into ROI — scan to try our interactive Security+ model.”**  
-- *Caption near QR/link:* **“This sandbox lets you adjust labor share, manpower cuts, and productivity gains to see how Security+ economics deliver measurable ROI.”**
-""")
 
     st.markdown("---")
     st.write("If you have our deck or GitHub link, you can jump between slides, this app, and the theory files for full transparency.")
