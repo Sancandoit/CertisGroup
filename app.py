@@ -12,6 +12,28 @@ st.set_page_config(
 )
 
 # -------------------------------
+# Custom banner styled to match your PDF (red header)
+# -------------------------------
+st.markdown(
+    """
+    <div style="
+        background-color:#B22222;  /* firebrick red */
+        padding: 1.2rem;
+        border-radius: 12px;
+        text-align: center;
+        color: #FAF9F6;            /* soft beige/off-white */
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        margin-top: 0.5rem;
+    ">
+        <h1 style="margin:0; font-size: 2rem;">Certis Security+ ROI Sandbox</h1>
+        <p style="margin:0; font-size: 1rem;">Group 4 • SP Jain School of Global Management</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+st.write("")  # spacer
+
+# -------------------------------
 # Helpers
 # -------------------------------
 def compute_roi(annual_ops_cost: float,
@@ -25,7 +47,7 @@ def compute_roi(annual_ops_cost: float,
     - Labor cost = annual_ops_cost * labor_share
     - Non-labor cost = annual_ops_cost * (1 - labor_share)
     - Savings from manpower reduction apply to the labor portion
-    - Productivity gain is illustrated as a throughput effect (kept for display; not double-counted in cost)
+    - Productivity gain is shown as a throughput effect (narrative), not double-counted in costs
     - New cost = (labor - savings) + non-labor + platform_cost
     """
     labor_cost = annual_ops_cost * labor_share
@@ -39,7 +61,6 @@ def compute_roi(annual_ops_cost: float,
     # Avoid division by zero; floor savings at 1 for payback math
     payback_months = 12 * (platform_cost / max(savings, 1)) if platform_cost > 0 else 0.0
 
-    # Throughput effect (not used in cost calc; for narrative)
     throughput_effect = (1 + productivity_gain)
 
     results = {
@@ -71,7 +92,6 @@ def format_money(x: float) -> str:
     except Exception:
         return str(x)
 
-
 # -------------------------------
 # Sidebar (shared inputs)
 # -------------------------------
@@ -79,7 +99,7 @@ with st.sidebar:
     st.header("Adjust assumptions")
 
     st.caption("Defaults mirror the case narrative: labor ~80% of cost, ~20% manpower reduction, "
-               "~25% productivity gain, platform cost ~$600k.")
+               "~25% productivity gain, platform cost ≈ $600k.")
 
     annual_ops_cost = st.number_input(
         "Baseline annual ops cost ($)",
@@ -124,7 +144,7 @@ tab_calc, tab_sens, tab_theory, tab_about = st.tabs(
 # ROI Calculator
 # -------------------------------
 with tab_calc:
-    st.title("Security+ ROI Sandbox")
+    st.subheader("Security+ ROI Sandbox")
     st.write("Explore how **manpower savings** and **productivity gains** turn into measurable ROI.")
 
     results = compute_roi(
@@ -154,13 +174,11 @@ with tab_calc:
     st.subheader("Results")
     st.table(df)
 
-    # Nice summary chips
     c1, c2, c3 = st.columns(3)
     c1.metric("Savings", format_money(results["Savings"]))
     c2.metric("ROI (x)", f"{results['ROI (Savings / Platform)']:.2f}x")
     c3.metric("Payback", f"{results['Payback (months)']:.1f} months")
 
-    # Download CSV
     csv_df = pd.DataFrame([results])
     st.download_button(
         "Download results as CSV",
@@ -178,8 +196,7 @@ with tab_calc:
 # Sensitivity
 # -------------------------------
 with tab_sens:
-    st.title("Sensitivity analysis")
-
+    st.subheader("Sensitivity analysis")
     st.write("Sweep a lever to see how outcomes change while other inputs stay fixed.")
 
     opt = st.selectbox(
@@ -218,24 +235,24 @@ with tab_sens:
 # Theory Map (loads your markdown files)
 # -------------------------------
 with tab_theory:
-    st.title("Theory ↔ Case Mapping")
+    st.subheader("Theory ↔ Case Mapping")
 
-    st.markdown("#### Value Proposition Map")
+    st.markdown("##### Value Proposition Map")
     st.markdown(load_markdown("theory-to-case/value-proposition-map.md"))
 
     st.markdown("---")
-    st.markdown("#### Strategic Challenges Map")
+    st.markdown("##### Strategic Challenges Map")
     st.markdown(load_markdown("theory-to-case/strategic-challenges-map.md"))
 
     st.markdown("---")
-    st.markdown("#### Frameworks Applied")
+    st.markdown("##### Frameworks Applied")
     st.markdown(load_markdown("theory-to-case/frameworks.md"))
 
 # -------------------------------
 # About
 # -------------------------------
 with tab_about:
-    st.title("About this companion")
+    st.subheader("About this companion")
 
     st.markdown("""
 **Course:** Technology & Digitization of Supply Chains  
@@ -254,3 +271,26 @@ with tab_about:
 
     st.markdown("---")
     st.write("If you have our deck or GitHub link, you can jump between slides, this app, and the theory files for full transparency.")
+
+# -------------------------------
+# Matching footer (beige bar with red text)
+# -------------------------------
+st.write("")  # spacer
+st.markdown(
+    """
+    <div style="
+        background-color:#FAF9F6;  /* beige */
+        border: 1px solid #E8DCCF;
+        padding: 0.8rem 1rem;
+        border-radius: 12px;
+        margin-top: 1.2rem;
+        margin-bottom: 0.5rem;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        color:#B22222;  /* red text to match header */
+        text-align:center;
+    ">
+        <strong>Certis Security+ • ROI & Theory Companion</strong> — Group 4, SP Jain School of Global Management
+    </div>
+    """,
+    unsafe_allow_html=True
+)
