@@ -1,0 +1,6 @@
+[theme]
+primaryColor = "#B22222"          # Firebrick red (close to your PDF’s red)
+backgroundColor = "#FAF9F6"       # Soft beige / off-white
+secondaryBackgroundColor = "#F5E6DA"  # Slightly darker beige for sidebars
+textColor = "#2B2B2B"             # Dark gray text
+font = "sans serif"
